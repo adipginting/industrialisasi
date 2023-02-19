@@ -1,0 +1,14 @@
+services:
+  interface:
+    build: https://github.com/adipginting/industrialisasi-interface.git#main
+    ports: "3000:3000"
+  apis:
+    build: https://github.com/adipginting/industrialisasi-apis.git#main
+    ports: "4000:4000"
+  database:
+    build: .
+    volumes: data:/var/lib/postgresql/14/main/
+
+  volumes:
+    data:
+      driver: local
