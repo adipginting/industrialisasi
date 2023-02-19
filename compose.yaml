@@ -12,6 +12,6 @@ services:
     volumes:
       - data:/var/lib/postgresql/14/main/
 
-  volumes:
-    data:
-      driver: local
+volumes:
+  data:
+    driver: local
