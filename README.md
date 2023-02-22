@@ -1,5 +1,5 @@
 # industrialisasi
-This repository contains the docker compose file to run Industrialisasi CMS on production system. This repository also contains database initialization for the backend.
+A work in progress. This repository contains the docker compose file to run Industrialisasi CMS on production system. This repository also contains database initialization for the backend.
 
-To run:
- sudo docker-compose up -d
+## To run it, use:
+    sudo docker-compose up -d
