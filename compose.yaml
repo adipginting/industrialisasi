@@ -5,11 +5,26 @@ services:
       - "3000:3000"
   apis:
     build: https://github.com/adipginting/industrialisasi-apis.git#main
+    environment:
+      - "PGHOST=${PGHOST}"
+      - "PGUSER=${PGUSER}"
+      - "PGDATABASE=${PGDATABASE}"
+      - "PGPORT=${PGPORT}"
+      - "PGPASSWORD=${PGPASSWORD}"
+      - "gmail_user=${gmail_user}"
+      - "gmail_pass=${gmail_pass}"
     ports:
       - "4000:4000"
   database:
     image: postgres:14
+    environment:
+      - "POSTGRES_USER=${PGUSER}"
+      - "POSTGRES_PASSWORD=${PGPASSWORD}"
+      - "POSTGRES_DB=${PGDATABASE}"
+    ports:
+      - "${PGPORT}:${PGPORT}"
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - data:/var/lib/postgresql/14/main/
 
 volumes:
