@@ -1,0 +1,86 @@
+openapi: 3.0.0
+
+info:
+  title: RESTful API documentation for industrialisasi.site
+  version: 0.1
+servers:
+  - url: https://api.industrialisasi.site
+
+paths:
+  /:
+    get:
+      summary: Get the root of the website.
+      description: Returns a welcome message and username if you are logged in.
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  username:
+                    type: string
+  /registered-email:
+    post:
+      summary: Email to be used for registering.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        "200":
+          description: "OK. An email is sent to the registered email."
+          content:
+            application/json:
+              schema:
+                type: string
+        "403":
+          description: "Access denied. The email had been registered or the email is invalid"
+          content:
+            application/json:
+              schema:
+                type: string
+  /register:
+    post:
+      summary: Register to the website.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+                - username
+                - password
+              properties:
+                code:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+
+      responses:
+        "403":
+          description: "Access denied because username has existed, username does not consist of alphabets and numbers, username is less than three characters, password is less than six characters,  or the password is too weak."
+          content:
+            application/json:
+              schema:
+                type: string
+        "202":
+          description: "OK. Registration is successful."
+          content:
+            application/json:
+              schema:
+                type: string
