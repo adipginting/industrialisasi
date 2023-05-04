@@ -6,6 +6,13 @@ info:
 servers:
   - url: https://api.industrialisasi.site
 
+components:
+  securitySchemes:
+    authentication:
+      type: apiKey
+      in: cookie
+      name: session-cookie
+
 paths:
   /:
     get:
@@ -78,9 +85,167 @@ paths:
             application/json:
               schema:
                 type: string
-        "202":
+        "200":
           description: "OK. Registration is successful."
           content:
             application/json:
               schema:
                 type: string
+  /email:
+    post:
+      summary: Check whether an email has been registered.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /login:
+    post:
+      summary: Login to the website.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: OK. Login is successful.
+          content:
+            application/json:
+              schema:
+                type: string
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+        "403":
+          description: Access denied.
+  /post:
+    post:
+      summary: Send post to get website.
+      security:
+        - authentication: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - title
+                - content
+              properties:
+                username:
+                  type: string
+                title:
+                  type: string
+                content:
+                  type: string
+      responses:
+        200:
+          description: "OK."
+        403:
+          description: "Access denied."
+  /posts:
+    post:
+      summary: Get some amount of posts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - no_posts
+              properties:
+                no_posts:
+                  type: integer
+      responses:
+        200:
+          description: send some amount of posts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    post:
+                      type: string
+                    username:
+                      type: string
+                    postid:
+                      type: string
+                    postedat:
+                      type: string
+                    lasteditedat:
+                      type: string
+  /username:
+    post:
+      summary: Check whether username exists.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /verifier:
+    post:
+      summary: Get email from verifier code for registration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+              properties:
+                code:
+                  type: string
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: string
+        403:
+          description: Access denied.
