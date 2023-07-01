@@ -1,10 +1,12 @@
 services:
   interface:
     build: https://github.com/adipginting/industrialisasi-interface.git#main
+    restart: always
     ports:
       - "3000:3000"
   api:
     build: https://github.com/adipginting/industrialisasi-apis.git#main
+    restart: always
     environment:
       - "PGHOST=${PGHOST}"
       - "PGUSER=${PGUSER}"
@@ -17,6 +19,7 @@ services:
       - "4000:4000"
   redoc:
     image: redocly/redoc
+    restart: always
     environment:
       - "SPEC_URL=industrialisasi.yaml"
     volumes:
@@ -25,6 +28,7 @@ services:
       - "5000:80"
   database:
     image: postgres:14
+    restart: always
     environment:
       - "POSTGRES_USER=${PGUSER}"
       - "POSTGRES_PASSWORD=${PGPASSWORD}"
