@@ -13,8 +13,9 @@ services:
       - "PGDATABASE=${PGDATABASE}"
       - "PGPORT=${PGPORT}"
       - "PGPASSWORD=${PGPASSWORD}"
-      - "gmail_user=${gmail_user}"
-      - "gmail_pass=${gmail_pass}"
+      - "GMAILUSER=${GMAILUSER}"
+      - "GMAILPASSWORD=${GMAILPASSWORD}"
+      - "PRODUCTION=${PRODUCTION}"
     ports:
       - "4000:4000"
   redoc:
@@ -27,7 +28,7 @@ services:
     ports:
       - "5000:80"
   database:
-    image: postgres
+    image: postgres:latest
     restart: always
     environment:
       - "POSTGRES_USER=${PGUSER}"
