@@ -37,7 +37,7 @@ services:
       - "${PGPORT}:${PGPORT}"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - data:/var/lib/postgresql/14/main/
+      - database:/var/lib/postgresql/14/main/
 
 volumes:
   data:
