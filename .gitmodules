@@ -1,0 +1,9 @@
+[submodule "industrialisasi-db-migrations"]
+	path = industrialisasi-db-migrations
+	url = https://github.com/adipginting/industrialisasi-db-migrations.git
+[submodule "industrialisasi-api"]
+	path = industrialisasi-api
+	url = https://github.com/adipginting/industrialisasi-api.git
+[submodule "industrialisasi-ui"]
+	path = industrialisasi-ui
+	url = https://github.com/adipginting/industrialisasi-ui.git
