@@ -1,11 +1,11 @@
 services:
   ui:
-    build: https://github.com/adipginting/industrialisasi-ui.git#main
+    build: industrialisasi-ui
     restart: always
     ports:
       - "3000:3000"
   api:
-    build: https://github.com/adipginting/industrialisasi-api.git#main
+    build: industrialisasi-api
     restart: always
     environment:
       - "PGHOST=${PGHOST}"
