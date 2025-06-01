@@ -16,6 +16,7 @@ services:
       - "GMAILUSER=${GMAILUSER}"
       - "GMAILPASSWORD=${GMAILPASSWORD}"
       - "PRODUCTION=${PRODUCTION}"
+      - "SECRET=${SECRET}"
     ports:
       - "4000:4000"
   redoc:
