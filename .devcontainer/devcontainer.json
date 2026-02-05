@@ -1,0 +1,6 @@
+{
+  "name": "Here be dragons",
+  "image": "node:25-trixie",
+  "postCreateCommand": "npm install -g @mariozechner/pi-coding-agent",
+  "forwardPorts": [5143],
+}
