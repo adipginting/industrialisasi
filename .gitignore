@@ -49,3 +49,7 @@ next-env.d.ts
 *.swp
 *.swo
 *~
+
+# log files
+api.log
+api-dev.log
