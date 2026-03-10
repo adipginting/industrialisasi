@@ -1,6 +1,8 @@
 {
-  "name": "Here be dragons",
-  "image": "node:25-trixie",
-  "postCreateCommand": "npm install -g @mariozechner/pi-coding-agent",
+  "name": "Industrialisasi",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "forwardPorts": [5143],
+  "remoteUser": "node"
 }

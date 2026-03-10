@@ -60,9 +60,6 @@ Industrialisasi is a modern web application demonstrating a complete full-stack 
   - `GET /users` - List all users
   - `GET /posts` - List all posts
   - `POST /posts` - Create a new post (authenticated)
-  - `POST /seed-users` - Seed users data
-  - `POST /seed-posts` - Seed posts data
-  - `POST /init-schema` - Initialize database schema
 
 ### UI (apps/ui)
 
@@ -124,11 +121,15 @@ This will start both applications:
 ### 5. Seed Database (Optional)
 
 ```bash
-# Seed initial users
-curl -X POST http://localhost:3000/seed-users
+cd apps/api
 
-# Seed initial posts
-curl -X POST http://localhost:3000/seed-posts
+# Seed everything (users and posts)
+npm run seed
+
+# Or seed individually
+npm run seed:users    # Seed only users
+npm run seed:posts    # Seed only posts
+npm run seed:schema   # Initialize/reset database schema
 ```
 
 ## Available Scripts
@@ -157,6 +158,10 @@ npm run build        # Build for production
 npm run test         # Run unit tests
 npm run test:e2e     # Run end-to-end tests
 npm run lint         # Run ESLint
+npm run seed         # Seed all data (users and posts)
+npm run seed:users   # Seed only users
+npm run seed:posts   # Seed only posts
+npm run seed:schema  # Initialize/reset database schema
 ```
 
 ## UI Development
