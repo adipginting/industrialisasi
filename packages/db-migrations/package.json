@@ -1,0 +1,12 @@
+{
+  "name": "@industrialisasi/db-migrations",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Database migrations for Industrialisasi",
+  "scripts": {
+    "migrate": "sqitch deploy",
+    "revert": "sqitch revert",
+    "status": "sqitch status",
+    "verify": "sqitch verify"
+  }
+}

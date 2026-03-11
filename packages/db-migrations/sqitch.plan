@@ -1,0 +1,6 @@
+%syntax-version=1.0.0
+%project=industrialisasi
+%uri=https://github.com/adipginting/industrialisasi-db-migrations/
+
+idstschema 2025-03-19T10:11:57Z Adi Ginting <adi@adipginting.com> # Add schema
+initialtables [idstschema] 2025-03-19T11:15:06Z Adi Ginting <adi@adipginting.com> # initial tables
