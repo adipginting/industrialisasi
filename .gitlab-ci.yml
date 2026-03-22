@@ -4,6 +4,6 @@ stages:
 test-job:
   stage: test
   tags:
-    - build          # ← matches your runner's tag
+    - build
   script:
     - echo "Runner is working!"
