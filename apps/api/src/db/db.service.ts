@@ -34,7 +34,9 @@ export class DbService {
 
   async getUsers() {
     try {
-      const res = await this.conn.query(`SELECT * FROM idst.users`);
+      const res = await this.conn.query(
+        `SELECT id, username, email, can_post FROM idst.users`,
+      );
       return res.rows;
     } catch (error) {
       console.error('getUsers error:', error);

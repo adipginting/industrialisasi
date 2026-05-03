@@ -404,14 +404,12 @@ describe('DbService', () => {
           id: '123',
           username: 'user1',
           email: 'user1@example.com',
-          hashed_password: 'hash1',
           can_post: true,
         },
         {
           id: '456',
           username: 'user2',
           email: 'user2@example.com',
-          hashed_password: 'hash2',
           can_post: false,
         },
       ];
@@ -424,10 +422,48 @@ describe('DbService', () => {
       const result = await service.getUsers();
 
       expect(mockConnection.query).toHaveBeenCalledWith(
-        `SELECT * FROM idst.users`,
+        `SELECT id, username, email, can_post FROM idst.users`,
       );
-      expect(result).toEqual(mockUsers);
-      expect(result).toHaveLength(2);
+
+      expect(result).toEqual([
+        {
+          id: '123',
+          username: 'user1',
+          email: 'user1@example.com',
+          can_post: true,
+        },
+        {
+          id: '456',
+          username: 'user2',
+          email: 'user2@example.com',
+          can_post: false,
+        },
+      ]);
+    });
+
+    it('should NOT expose hashed_password in results', async () => {
+      mockConnection.query
+        .mockResolvedValueOnce({
+          rows: [
+            {
+              id: '123',
+              username: 'user1',
+              email: 'user1@example.com',
+              can_post: true,
+            },
+          ],
+          rowCount: 1,
+        });
+
+      const result = await service.getUsers();
+
+      expect(result[0]).not.toHaveProperty('hashed_password');
+      expect(result[0]).toEqual({
+        id: '123',
+        username: 'user1',
+        email: 'user1@example.com',
+        can_post: true,
+      });
     });
 
     it('should return empty array when no users exist', async () => {
@@ -440,32 +476,6 @@ describe('DbService', () => {
 
       expect(result).toEqual([]);
       expect(result).toHaveLength(0);
-    });
-
-    it('should return all user fields', async () => {
-      const mockUsers = [
-        {
-          id: '789',
-          username: 'testuser',
-          email: 'test@example.com',
-          hashed_password: 'hashedpass',
-          can_post: true,
-          created_at: '2024-01-01T00:00:00Z',
-        },
-      ];
-
-      mockConnection.query.mockResolvedValueOnce({
-        rows: mockUsers,
-        rowCount: 1,
-      });
-
-      const result = await service.getUsers();
-
-      expect(result[0]).toHaveProperty('id');
-      expect(result[0]).toHaveProperty('username');
-      expect(result[0]).toHaveProperty('email');
-      expect(result[0]).toHaveProperty('hashed_password');
-      expect(result[0]).toHaveProperty('can_post');
     });
 
     it('should handle database errors and return empty array', async () => {
@@ -502,7 +512,6 @@ describe('DbService', () => {
         id: `${i + 1}`,
         username: `user${i + 1}`,
         email: `user${i + 1}@example.com`,
-        hashed_password: `hash${i + 1}`,
         can_post: i % 2 === 0,
       }));
 
@@ -524,14 +533,12 @@ describe('DbService', () => {
           id: '1',
           username: 'canpost',
           email: 'can@example.com',
-          hashed_password: 'hash1',
           can_post: true,
         },
         {
           id: '2',
           username: 'cannotpost',
           email: 'cannot@example.com',
-          hashed_password: 'hash2',
           can_post: false,
         },
       ];
@@ -557,7 +564,7 @@ describe('DbService', () => {
 
       expect(mockConnection.query).toHaveBeenCalledTimes(1);
       expect(mockConnection.query).toHaveBeenCalledWith(
-        `SELECT * FROM idst.users`,
+        `SELECT id, username, email, can_post FROM idst.users`,
       );
     });
   });

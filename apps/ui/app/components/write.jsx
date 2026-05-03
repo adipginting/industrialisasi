@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { api, getCanUserPost } from "./api";
-import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
 const Write = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const loggedInUser = useSelector((state) => state.login.loggedInUser);
   const navigate = useNavigate();
   const can_user_post = useQuery({
     queryKey: ["canUserPost"],
@@ -17,10 +15,11 @@ const Write = () => {
   const canUserPost = can_user_post;
 
   useEffect(() => {
-    if (loggedInUser === "") {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/login");
     }
-  }, [loggedInUser, navigate]);
+  }, [navigate]);
 
   const titleHandler = (event) => {
     setTitle(event.target.value);
